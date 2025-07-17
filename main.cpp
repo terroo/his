@@ -5,7 +5,7 @@ const auto help = [](){
     "his [options]\n\n"
     "Options:\n"
     "  --match-start,   -m  Match only the exact command.\n"
-    "  --no-show-icons, -n  Displays icons.\n"
+    "  --no-show-icons, -n  No displays icons.\n"
     "  --help,          -h  Show this message.\n"
     "  --version,       -v  Show version info.\n");
 };
