@@ -69,6 +69,8 @@ sudo cmake --install build
 ---
 
 ## 💼 Usage
+### After SELECTING the <u>top command</u>, press `ENTER` to run it via `his`
+
 > `his --help`
 
 ```bash
