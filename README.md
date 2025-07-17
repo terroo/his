@@ -4,11 +4,11 @@ A command history utility with icons and colors that works on Windows and GNU/Li
 ---
 
 ### GNU/Linux
-![his command](https://terminalroot.com/assets/img/commands/his.gif) 
+![his command](https://github.com/terroo/terroo.github.io/blob/main/assets/img/commands/his.gif?raw=true) 
 
 
 ### Windows
-![his command Windows](https://terminalroot.com/assets/img/commands/his-win.gif) 
+![his command Windows](https://github.com/terroo/terroo.github.io/blob/main/assets/img/commands/his-win.gif?raw=true) 
 
 ---
 
