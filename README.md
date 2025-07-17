@@ -77,7 +77,7 @@ his [options]
 
 Options:
   --match-start,   -m  Match only the exact command.
-  --no-show-icons, -n  Displays icons.
+  --no-show-icons, -n  No displays icons.
   --help,          -h  Show this message.
   --version,       -v  Show version info.
 ```
