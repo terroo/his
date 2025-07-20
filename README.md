@@ -87,5 +87,5 @@ Options:
 ---
 
 ### 📹 Video tutorial showing step by step how the `his` command was made.
-#### <https://youtu.be/his-command>
+#### <https://youtu.be/gILIsK3MiGQ>
 
