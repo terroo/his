@@ -16,12 +16,14 @@ A command history utility with icons and colors that works on Windows and GNU/Li
 
 ### 🪟 Windows
 + [Fonts](https://github.com/terroo/fonts)
+> Change your terminal font to: **JetBrains Mono Medium Nerd Font**.
 + [Git](https://terminalroot.com.br/2023/03/como-instalar-git-e-git-bash-no-windows.html)
 + [GCC](https://terminalroot.com/how-to-install-the-new-version-of-gcc-mingw-on-windows/) or [Clang](https://terminalroot.com/how-to-install-the-new-version-of-clang-llvm-on-windows/)
 + [PDCurses](https://terminalroot.com/how-to-install-pdcurses-ncurses-on-windows/)
 
 ### 🐂 GNU/Linux
 + [Fonts](https://github.com/terroo/fonts)
+> Change your terminal font to: **JetBrains Mono Medium Nerd Font**.
 + [Git](https://terminalroot.com/tags#git)
 + [GCC](https://terminalroot.com/tags#gcc) or [Clang](https://terminalroot.com/tags#clang)
 + [NCurses](https://terminalroot.com.br/ncurses)
