@@ -161,46 +161,46 @@ void His::run(){
 
 const std::function<std::string(const std::string&)> His::unicode = [](const std::string& str) {
   static const std::unordered_map<std::string, std::string> html = {
-    {"ter", "\uf68c"},
-    {"g++", "\ufb71"},
-    {"clang++", "\ufb71"},
-    {"clang", "\ufb70"},
-    {"gcc", "\ufb70"},
-    {"python", "\uf81f"},
-    {"vim", "\ue62b"},
-    {"nvim", "\ue62b"},
-    {"cmake", "\uf425"},
-    {"git", "\ue5fb"},
-    {"sh", "\uf68c"},
-    {"bash", "\uf68c"},
-    {"zsh", "\uf68c"},
-    {"dir", "\uf74a"},
-    {"ls", "\uf74a"},
-    {"apt", "\uf306"},
-    {"java", "\uf675"},
-    {"javac", "\uf675"},
-    {"jshell", "\uf675"},
-    {"php", "\ue73d"},
-    {"lua", "\ue620"},
-    {"node", "\ue74e"},
-    {"npm", "\ue74e"},
-    {"bun", "\ue74e"},
-    {"qjs", "\ue74e"},
-    {"swift", "\ufbe3"},
-    {"zip", "\uf410"},
-    {"tar", "\uf410"},
-    {"make", "\uf728"},
-    {"mpg123", "\ufb75"},
-    {"ffmpeg", "\ue271"},
-    {"ffplay", "\ue271"},
-    {"go",  "\ufcd1"},
-    {"rustc", "\ue7a8"},
-    {"cargo", "\ue7a8"},
-    {"ruby", "\ue739"},
-    {"mysql", "\ue704"},
-    {"psql", "\ue704"},
-    {"sqlite3", "\ue7c4"},
-    {"sqlite", "\ue7c4"},
+    {"ter", "\uEA85"},      // Terminal: nf-md-console
+    {"g++", "\uF7A1"},      // C++: nf-dev-cplusplus
+    {"clang++", "\uF7A1"},  // C++: nf-dev-cplusplus
+    {"clang", "\uF7A1"},    // C++: nf-dev-cplusplus
+    {"gcc", "\uF7A1"},      // C++: nf-dev-cplusplus
+    {"python", "\uE73C"},   // Python: nf-dev-python
+    {"vim", "\uE62B"},      // Vim: nf-custom-vim
+    {"nvim", "\uE62B"},     // Neovim: nf-custom-vim
+    {"cmake", "\uE61E"},    // CMake: nf-custom-cmake
+    {"git", "\uE702"},      // Git: nf-dev-git
+    {"sh", "\uEA85"},       // Shell: nf-md-console
+    {"bash", "\uEA85"},     // Bash: nf-md-console
+    {"zsh", "\uEA85"},      // Zsh: nf-md-console
+    {"dir", "\uF115"},      // Directory: nf-fa-folder
+    {"ls", "\uF115"},       // Directory: nf-fa-folder
+    {"apt", "\uF309"},      // Apt: nf-linux-ubuntu
+    {"java", "\uE738"},     // Java: nf-dev-java
+    {"javac", "\uE738"},    // Java: nf-dev-java
+    {"jshell", "\uE738"},   // Java: nf-dev-java
+    {"php", "\uE73D"},      // PHP: nf-dev-php
+    {"lua", "\uE620"},      // Lua: nf-custom-lua
+    {"node", "\uE718"},     // Node.js: nf-dev-nodejs
+    {"npm", "\uE71E"},      // NPM: nf-dev-npm
+    {"bun", "\uE7B6"},      // Bun: nf-seti-bundle
+    {"qjs", "\uE718"},      // Node.js: nf-dev-nodejs (fallback)
+    {"swift", "\uE755"},    // Swift: nf-dev-swift
+    {"zip", "\uF410"},      // Archive: nf-fa-file_archive_o
+    {"tar", "\uF410"},      // Archive: nf-fa-file_archive_o
+    {"make", "\uF489"},     // Make: nf-dev-terminal
+    {"mpg123", "\uF001"},   // Music: nf-fa-music
+    {"ffmpeg", "\uF03D"},   // Video: nf-fa-film
+    {"ffplay", "\uF03D"},   // Video: nf-fa-film
+    {"go",  "\uE724"},      // Go: nf-dev-go
+    {"rustc", "\uE7A8"},    // Rust: nf-seti-rust
+    {"cargo", "\uE7A8"},    // Rust: nf-seti-rust
+    {"ruby", "\uE739"},     // Ruby: nf-dev-ruby
+    {"mysql", "\uE704"},    // Database: nf-dev-mysql
+    {"psql", "\uE76E"},     // PostgreSQL: nf-dev-postgresql
+    {"sqlite3", "\uE7C4"},  // SQLite: nf-seti-sqlite
+    {"sqlite", "\uE7C4"},   // SQLite: nf-seti-sqlite
   };
   auto it = html.find(str);
   return it != html.end() ? it->second : html.at("ter");
