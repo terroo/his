@@ -1,8 +1,22 @@
 #include "his.hpp"
+#include <cstring>
 
 auto rgb_to_ncurses = [](int r, int g, int b) {
   return std::tuple{ r * 1000 / 255, g * 1000 / 255, b * 1000 / 255 };
 };
+
+static std::string get_history_file(const std::string& home, const char* env_var, const std::string& default_file) {
+  const char* histfile = std::getenv(env_var);
+  if (histfile && std::strlen(histfile) > 0) {
+    std::filesystem::path hist_path(histfile);
+    if (hist_path.is_absolute()) {
+      return histfile;
+    } else {
+      return home + "/" + std::string(histfile);
+    }
+  }
+  return home + "/" + default_file;
+}
 
 His::His(const std::optional<bool> match,
     const std::optional<bool> icons) 
@@ -15,16 +29,19 @@ His::His(const std::optional<bool> match,
   home = std::getenv("HOME");
   const auto shell = std::getenv("SHELL");
   try {
-    if(std::filesystem::path(shell).filename() == "bash"){
-      his_comm = home + "/.bash_history";
+    if (!shell) {
+      throw std::runtime_error("SHELL environment variable is not set. Cannot determine current shell.");
+    }else if(std::filesystem::path(shell).filename() == "bash"){
+      his_comm = get_history_file(home, "HISTFILE", ".bash_history");
     }else if(std::filesystem::path(shell).filename() == "zsh"){
-      his_comm = home + "/.zsh_history";
+      his_comm = get_history_file(home, "HISTFILE", ".zsh_history");
     }else{
       throw std::runtime_error("Your default SHELL is not supported.");
     }
   } catch (const std::exception& e) {
     std::printf("his: %s", e.what());
   }
+
 #endif
 
   initscr();
