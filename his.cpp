@@ -1,8 +1,22 @@
 #include "his.hpp"
+#include <cstring>
 
 auto rgb_to_ncurses = [](int r, int g, int b) {
   return std::tuple{ r * 1000 / 255, g * 1000 / 255, b * 1000 / 255 };
 };
+
+static std::string get_history_file(const std::string& home, const char* env_var, const std::string& default_file) {
+  const char* histfile = std::getenv(env_var);
+  if (histfile && std::strlen(histfile) > 0) {
+    std::filesystem::path hist_path(histfile);
+    if (hist_path.is_absolute()) {
+      return histfile;
+    } else {
+      return home + "/" + std::string(histfile);
+    }
+  }
+  return home + "/" + default_file;
+}
 
 His::His(const std::optional<bool> match,
     const std::optional<bool> icons) 
@@ -15,16 +29,19 @@ His::His(const std::optional<bool> match,
   home = std::getenv("HOME");
   const auto shell = std::getenv("SHELL");
   try {
-    if(std::filesystem::path(shell).filename() == "bash"){
-      his_comm = home + "/.bash_history";
+    if (!shell) {
+      throw std::runtime_error("SHELL environment variable is not set. Cannot determine current shell.");
+    }else if(std::filesystem::path(shell).filename() == "bash"){
+      his_comm = get_history_file(home, "HISTFILE", ".bash_history");
     }else if(std::filesystem::path(shell).filename() == "zsh"){
-      his_comm = home + "/.zsh_history";
+      his_comm = get_history_file(home, "HISTFILE", ".zsh_history");
     }else{
       throw std::runtime_error("Your default SHELL is not supported.");
     }
   } catch (const std::exception& e) {
     std::printf("his: %s", e.what());
   }
+
 #endif
 
   initscr();
@@ -144,46 +161,46 @@ void His::run(){
 
 const std::function<std::string(const std::string&)> His::unicode = [](const std::string& str) {
   static const std::unordered_map<std::string, std::string> html = {
-    {"ter", "\uf68c"},
-    {"g++", "\ufb71"},
-    {"clang++", "\ufb71"},
-    {"clang", "\ufb70"},
-    {"gcc", "\ufb70"},
-    {"python", "\uf81f"},
-    {"vim", "\ue62b"},
-    {"nvim", "\ue62b"},
-    {"cmake", "\uf425"},
-    {"git", "\ue5fb"},
-    {"sh", "\uf68c"},
-    {"bash", "\uf68c"},
-    {"zsh", "\uf68c"},
-    {"dir", "\uf74a"},
-    {"ls", "\uf74a"},
-    {"apt", "\uf306"},
-    {"java", "\uf675"},
-    {"javac", "\uf675"},
-    {"jshell", "\uf675"},
-    {"php", "\ue73d"},
-    {"lua", "\ue620"},
-    {"node", "\ue74e"},
-    {"npm", "\ue74e"},
-    {"bun", "\ue74e"},
-    {"qjs", "\ue74e"},
-    {"swift", "\ufbe3"},
-    {"zip", "\uf410"},
-    {"tar", "\uf410"},
-    {"make", "\uf728"},
-    {"mpg123", "\ufb75"},
-    {"ffmpeg", "\ue271"},
-    {"ffplay", "\ue271"},
-    {"go",  "\ufcd1"},
-    {"rustc", "\ue7a8"},
-    {"cargo", "\ue7a8"},
-    {"ruby", "\ue739"},
-    {"mysql", "\ue704"},
-    {"psql", "\ue704"},
-    {"sqlite3", "\ue7c4"},
-    {"sqlite", "\ue7c4"},
+    {"ter", "\uEA85"},      // Terminal: nf-md-console
+    {"g++", "\uF7A1"},      // C++: nf-dev-cplusplus
+    {"clang++", "\uF7A1"},  // C++: nf-dev-cplusplus
+    {"clang", "\uF7A1"},    // C++: nf-dev-cplusplus
+    {"gcc", "\uF7A1"},      // C++: nf-dev-cplusplus
+    {"python", "\uE73C"},   // Python: nf-dev-python
+    {"vim", "\uE62B"},      // Vim: nf-custom-vim
+    {"nvim", "\uE62B"},     // Neovim: nf-custom-vim
+    {"cmake", "\uE61E"},    // CMake: nf-custom-cmake
+    {"git", "\uE702"},      // Git: nf-dev-git
+    {"sh", "\uEA85"},       // Shell: nf-md-console
+    {"bash", "\uEA85"},     // Bash: nf-md-console
+    {"zsh", "\uEA85"},      // Zsh: nf-md-console
+    {"dir", "\uF115"},      // Directory: nf-fa-folder
+    {"ls", "\uF115"},       // Directory: nf-fa-folder
+    {"apt", "\uF309"},      // Apt: nf-linux-ubuntu
+    {"java", "\uE738"},     // Java: nf-dev-java
+    {"javac", "\uE738"},    // Java: nf-dev-java
+    {"jshell", "\uE738"},   // Java: nf-dev-java
+    {"php", "\uE73D"},      // PHP: nf-dev-php
+    {"lua", "\uE620"},      // Lua: nf-custom-lua
+    {"node", "\uE718"},     // Node.js: nf-dev-nodejs
+    {"npm", "\uE71E"},      // NPM: nf-dev-npm
+    {"bun", "\uE7B6"},      // Bun: nf-seti-bundle
+    {"qjs", "\uE718"},      // Node.js: nf-dev-nodejs (fallback)
+    {"swift", "\uE755"},    // Swift: nf-dev-swift
+    {"zip", "\uF410"},      // Archive: nf-fa-file_archive_o
+    {"tar", "\uF410"},      // Archive: nf-fa-file_archive_o
+    {"make", "\uF489"},     // Make: nf-dev-terminal
+    {"mpg123", "\uF001"},   // Music: nf-fa-music
+    {"ffmpeg", "\uF03D"},   // Video: nf-fa-film
+    {"ffplay", "\uF03D"},   // Video: nf-fa-film
+    {"go",  "\uE724"},      // Go: nf-dev-go
+    {"rustc", "\uE7A8"},    // Rust: nf-seti-rust
+    {"cargo", "\uE7A8"},    // Rust: nf-seti-rust
+    {"ruby", "\uE739"},     // Ruby: nf-dev-ruby
+    {"mysql", "\uE704"},    // Database: nf-dev-mysql
+    {"psql", "\uE76E"},     // PostgreSQL: nf-dev-postgresql
+    {"sqlite3", "\uE7C4"},  // SQLite: nf-seti-sqlite
+    {"sqlite", "\uE7C4"},   // SQLite: nf-seti-sqlite
   };
   auto it = html.find(str);
   return it != html.end() ? it->second : html.at("ter");
